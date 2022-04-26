@@ -1,29 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react';
 import Routes from './lib/Navigation/routes';
-import { NavigationContainer } from '@react-navigation/native';
-import PushNotification from 'react-native-push-notification';
-import { store } from './lib/Store/Store';
-import { Provider } from 'react-redux';
+import {NavigationContainer} from '@react-navigation/native';
+import {store} from './lib/Store/Store';
+import {Provider} from 'react-redux';
+import Firebase from './lib/config/firebase';
 
-PushNotification.configure({
-  onRegister: function (token: any) {
-    console.log('TOKEN welcome:', token);
-
-  },
-
-  onNotification: function (notification) {
-    console.log('NOTIFICATIONS:', notification);
-    // noticeAction();
-  },
-});
 const App = () => {
+  useEffect(() => {
+    Firebase();
+  }, []);
+
   return (
     <NavigationContainer>
-        <Provider store={store}>
-      <Routes />
-        </Provider>
+      <Provider store={store}>
+        <Routes />
+      </Provider>
     </NavigationContainer>
-  )
-}
+  );
+};
 
-export default App
+export default App;
